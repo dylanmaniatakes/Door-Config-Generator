@@ -1,0 +1,25 @@
+# Python bytecode
+__pycache__/
+*.pyc
+
+# Virtual environments
+venv/
+.env/
+
+# PyInstaller output
+/build/
+/dist/
+*.spec
+
+# macOS junk
+.DS_Store
+
+# Logs
+*.log
+
+# User-generated CSV input
+*.csv
+
+# IDE
+.vscode/
+.idea/
