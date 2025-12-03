@@ -304,10 +304,10 @@ def draw_panel_diagram(
                     if addr is not None and addr > 0:
                         short = (
                             key.replace('Door Position', 'DPOS')
-                            .replace('Strike', 'STR')
-                            .replace('Rex #1', 'REX1')
-                            .replace('Rex #2', 'REX2')
-                            .replace('Reader', 'RD')
+                            .replace('Strike', 'LOCK Output')
+                            .replace('Rex #1', 'REX1 Input')
+                            .replace('Rex #2', 'REX2 Input')
+                            .replace('Reader', 'RDR Output')
                         )
                         lines.append(f"{short}:{addr}")
             label = '\n'.join(lines)
