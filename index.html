@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <title>Door Config Generator</title>
+  <script>try { document.documentElement.dataset.theme = localStorage.getItem('door-config-theme') || 'dark'; } catch { document.documentElement.dataset.theme = 'dark'; }</script>
+  <link rel="stylesheet" href="styles.css">
+  <script src="door-config.js" defer></script>
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="index.html"><span class="brand-mark" aria-hidden="true">▥</span><span>Door Config<span class="brand-sub">GENERATOR</span></span></a>
+    <div class="header-actions"><span class="privacy"><span class="status-dot"></span> Local & private</span><button id="theme-toggle" class="secondary theme-toggle" type="button" aria-label="Switch to light mode">Light mode ☀</button></div>
+  </header>
+  <main class="workspace">
+    <aside class="sidebar">
+      <div class="eyebrow">AVIGILON ACM</div>
+      <h1>Your report.<br> Your wiring map.</h1>
+      <p class="intro">Turn a Door Configuration CSV into clear, downloadable panel diagrams.</p>
+      <section aria-labelledby="import-title">
+        <h2 id="import-title"><span class="step">01</span> Import report</h2>
+        <label class="dropzone" id="dropzone">
+          <input id="file-input" type="file" accept=".csv,text/csv">
+          <span class="upload-icon" aria-hidden="true">↑</span>
+          <strong>Choose a CSV file</strong>
+          <span>or drag and drop it here</span>
+          <small>Avigilon ACM · Name / Value format</small>
+        </label>
+        <div id="file-info" class="file-info" hidden><span id="file-name"></span><button id="reset" class="text-button" type="button">Clear</button></div>
+        <button id="demo" class="secondary full" type="button">Try an example report <span aria-hidden="true">↗</span></button>
+        <button id="sample" class="text-button sample" type="button">Download example CSV</button>
+      </section>
+      <section aria-labelledby="options-title">
+        <h2 id="options-title"><span class="step">02</span> Diagram options</h2>
+        <label class="toggle-row"><span>Show connection lines</span><input id="connectors" type="checkbox"><span class="switch" aria-hidden="true"></span></label>
+        <p class="hint">Connect the controller, subpanels, and doors.</p>
+      </section>
+      <div class="local-note"><span aria-hidden="true">◈</span><p>Your report stays in this browser.<br>No uploads, accounts, or server.</p></div>
+    </aside>
+    <div class="main-area">
+      <div class="page-heading"><div><div class="eyebrow">WORKSPACE</div><h2>Panel diagrams</h2></div><button id="download-all" class="primary" disabled type="button">Download all PNGs <span aria-hidden="true">↓</span></button></div>
+      <div id="message" class="message" role="status" aria-live="polite" hidden></div>
+      <div id="empty-state" class="empty-state">
+        <div class="empty-grid" aria-hidden="true"><div class="mini-controller">CONTROLLER</div><div class="mini-branches"><div>SUBPANEL<div class="mini-door">DOOR 01</div><div class="mini-door">DOOR 02</div></div><div>SUBPANEL<div class="mini-door">DOOR 03</div><div class="mini-door">DOOR 04</div></div></div></div>
+        <span class="eyebrow">FROM REPORT TO DIAGRAM</span><h3>A clearer view of every door.</h3><p>Import a report to see your controllers, subpanels,<br>and door hardware in one place.</p>
+        <span class="empty-tip">CSV in. Wiring diagrams out.</span>
+      </div>
+      <div id="results" hidden>
+        <div class="stats"><div><strong id="panel-count">0</strong><span>Panels</span></div><div><strong id="subpanel-count">0</strong><span>Subpanel groups</span></div><div><strong id="door-count">0</strong><span>Doors</span></div><div class="report-label">REPORT READY<span>Review mappings before use</span></div></div>
+        <div class="diagram-card">
+          <div class="diagram-toolbar"><div class="panel-control"><label for="panel-select">Panel</label><select id="panel-select"></select></div><div class="export-actions"><button id="download-svg" class="secondary" type="button">SVG ↓</button><button id="download-png" class="secondary" type="button">PNG ↓</button></div></div>
+          <div class="diagram-meta"><span id="panel-detail"></span><label for="zoom">Zoom <input id="zoom" type="range" min="50" max="150" step="10" value="100"><output id="zoom-value">100%</output></label></div>
+          <div id="diagram" class="diagram-viewport" tabindex="0" role="region" aria-label="Panel wiring diagram"></div>
+          <div class="legend"><span><i class="controller-key"></i>Controller</span><span><i class="subpanel-key"></i>Subpanel</span><span><i class="door-key"></i>Door hardware</span></div>
+        </div>
+        <details id="warnings" class="warnings" hidden><summary id="warning-title"></summary><ul id="warning-list"></ul></details>
+        <p class="report-footnote">Layout follows your report’s hardware assignments. Subpanel 0 is labeled Internal SIO; positive subpanel numbers use the original generator’s MR52 convention. Confirm hardware models and wiring on site.</p>
+      </div>
+      <footer>DOOR CONFIG GENERATOR <span>Built for a simpler handoff.</span></footer>
+    </div>
+  </main>
+</body>
+</html>
